@@ -1,5 +1,7 @@
+const jwt = require("jsonwebtoken");
 const {UserRepository} = require("../repository/index");
 const bcrypt = require("bcrypt");
+const { Secrete_Key } = require("../config/server-config");
 
 class UserService {
 
@@ -46,7 +48,8 @@ class UserService {
             if(!bcrypt.compareSync(data.password,user.password)){
                 throw "Incorrect password";
             }
-            return true;
+            const token = jwt.sign({id:user.id,email:user.email},Secrete_Key,{expiresIn:'3d'});
+            return token;
         } catch (error) {
             console.log(error);
             throw error;

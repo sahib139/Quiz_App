@@ -7,4 +7,5 @@ module.exports={
     PORT:process.env.PORT,
     SALT:bcrypt.genSaltSync(10),
     DB_SYNC:false,
+    Secrete_Key:process.env.Secrete_Key,
 }
