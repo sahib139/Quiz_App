@@ -106,6 +106,46 @@ class ResponseController{
             });
         }
     }
+
+    async getScore(req,res){
+        try {
+            const response = await this.responseService.getScore(req.user);
+            return res.status(200).json({
+                data:response,
+                success:true,
+                message:"successfully get the user score",
+                err:{},
+            }); 
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({
+                data:{},
+                success:false,
+                message:"Unable to get the user score",
+                err:error,
+            });
+        }
+    }
+
+    async quizFeedback(req,res){
+        try {
+            const response = await this.responseService.quizFeedback(req.user);
+            return res.status(200).json({
+                data:response,
+                success:true,
+                message:"successfully get the user quizFeedback",
+                err:{},
+            }); 
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({
+                data:{},
+                success:false,
+                message:"Unable to get the user quizFeedback",
+                err:error,
+            });
+        }
+    }
 }
 
 module.exports = ResponseController;

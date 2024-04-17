@@ -68,6 +68,40 @@ class ResponseService {
             throw error;
         }
     }
+
+    async getScore(userDetail){
+        try {
+            const responses = await this.responseRepository.findAllResponseOfUser(userDetail.id);
+            let score = 0;
+            responses.map((response)=>{
+                if(response.is_correct)score++;
+            });
+            return score;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+
+    async quizFeedback(userDetail){
+        try {
+            const responses = await this.responseRepository.findAllResponseOfUser(userDetail.id);
+            responses = responses.map(async (responses)=>{
+                const Question = await this.questionRepository.get(responses.question_id);
+                Question.option = JSON.parse(Question.option)
+                return {
+                    question : Question.question,
+                    selected_answer : Question.option[responses.selected_answer],
+                    correct_answer : Question.option[correct_answer],
+                    is_correct : responses.is_correct
+                }
+            });
+            return responses;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
 }
 
 module.exports = ResponseService;
