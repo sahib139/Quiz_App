@@ -86,6 +86,26 @@ class ResponseController{
             });
         }
     }
+
+    async createBulk(req,res){
+        try {
+            const response = await this.responseService.update(req.user,req.body);
+            return res.status(200).json({
+                data:response,
+                success:true,
+                message:"successfully createBulk response",
+                err:{},
+            }); 
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({
+                data:{},
+                success:false,
+                message:"Unable to createBulk response",
+                err:error,
+            });
+        }
+    }
 }
 
 module.exports = ResponseController;

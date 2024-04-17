@@ -20,6 +20,15 @@ class ResponseRepository extends CrudRepository{
             throw error;
         }
     }
+    async createBulk(data){
+        try {
+            const response = await Response.BulkCreate(data);
+            return response;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
 }
 
 module.exports = ResponseRepository;
