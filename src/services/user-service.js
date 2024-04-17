@@ -1,4 +1,5 @@
 const {UserRepository} = require("../repository/index");
+const bcrypt = require("bcrypt");
 
 class UserService {
 
@@ -36,15 +37,15 @@ class UserService {
         }
     }
 
-    async update(id,data){
+    async signIn(data){
         try {
-            const response = await this.userRepository.update(id,data);
-            return response;
+            
         } catch (error) {
             console.log(error);
             throw error;
         }
     }
+    
 }
 
 module.exports = UserService;
