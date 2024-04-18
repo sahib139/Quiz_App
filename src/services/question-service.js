@@ -39,8 +39,18 @@ class QuestionService {
     async update(id,data){
         try {
             const response = await this.questionRepository.update(id,data);
-            return response;
+            return true;
         } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+
+    async findAll(filter){
+        try{
+            const response = await this.questionRepository.findAll(filter);
+            return response;
+        } catch (error){
             console.log(error);
             throw error;
         }

@@ -12,7 +12,7 @@ class QuestionController{
             const response = await this.questionService.get(req.params.id);
             return res.status(200).json({
                 data:response,
-                success:success,
+                success:true,
                 message:"successfully fetch the question",
                 err:{},
             });
@@ -22,6 +22,26 @@ class QuestionController{
                 data:{},
                 success:false,
                 message:"Unable to fetch the question",
+                err:error,
+            });
+        }
+    }
+
+    async getAll(req,res){
+        try {
+            const response = await this.questionService.findAll(req.body);
+            return res.status(200).json({
+                data:response,
+                success:true,
+                message:"successfully fetch the questions",
+                err:{},
+            });
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({
+                data:{},
+                success:false,
+                message:"Unable to fetch the questions",
                 err:error,
             });
         }

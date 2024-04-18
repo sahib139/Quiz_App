@@ -40,7 +40,12 @@ class CrudRepository{
 
     async update(id,data){
         try {
-            const response = await this.model.update(id,data);
+            console.log(id,data);
+            const response = await this.model.update(data,{
+                where:{
+                    id,
+                }
+            });
             return response;
         } catch (error) {
             console.log(error);

@@ -4,9 +4,12 @@ const router = express.Router();
 const {QuestionController} = require("../../controllers/index");
 const questionController = new QuestionController();
 
-router.get("/get/:id",questionController.get);
-router.post("/create",questionController.create);
-router.patch("/update/:id",questionController.update);
-router.delete("/delete/:id",questionController.delete);
+const QuestionMiddleware = require("../../middleware/question-middleware");
 
-module.exports=router;
+router.get("/get/:id",questionController.get.bind(questionController));
+router.post("/create",QuestionMiddleware.createMiddleware,questionController.create.bind(questionController));
+router.patch("/update/:id",questionController.update.bind(questionController));
+router.delete("/delete/:id",questionController.delete.bind(questionController));
+router.get("/get",QuestionMiddleware.getAllMiddleware,questionController.getAll.bind(questionController));
+
+module.exports=router;  
