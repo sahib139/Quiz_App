@@ -9,7 +9,7 @@ function checkSignUp(req, res, next) {
         if (!emailRegex.test(email)) {
             throw "Invalid email format";
         }
-        if (password.length <= 8) {
+        if (password.length < 8) {
             throw 'Password must be at least 8 characters long';
         }
         next();
@@ -30,7 +30,7 @@ function checkSignIn(req, res, next) {
         if (!emailRegex.test(email)) {
             throw 'Invalid email format';
         }
-        if (password.length <= 8) {
+        if (password.length < 8) {
             throw 'Password must be at least 8 characters long';
         }
         next();
