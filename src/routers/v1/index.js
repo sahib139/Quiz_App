@@ -8,8 +8,8 @@ const ResponseRoutes = require("./response-route");
 const Authenticate = require("../../middleware/Authenticate");
 
 router.use("/user",UserRoutes);
-router.use("/question",Authenticate,QuestionRoutes);
-router.use("/response",Authenticate,ResponseRoutes);
+router.use(Authenticate,QuestionRoutes);
+router.use(Authenticate,ResponseRoutes);
 
 
 module.exports=router;
