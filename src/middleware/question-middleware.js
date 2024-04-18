@@ -18,8 +18,14 @@ const getAllMiddleware = async (req,res,next)=>{
 
 const createMiddleware = async (req,res,next)=>{
     try {
-        if(!Array.isArray(req.body.options)){
-            throw "options are given in bad format!"
+        if(!req.body.question){
+            throw "question must be provided";
+        }
+        if(!req.body.options && !Array.isArray(req.body.options) && req.body.options.length < 4){
+            throw "four options must be given in array format";
+        }
+        if(!req.body.correct_answer){
+            throw "index of correct_answer must be provided";
         }
         next();
     } catch (error) {
