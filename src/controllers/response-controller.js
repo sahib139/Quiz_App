@@ -1,4 +1,5 @@
 const {ResponseService}  = require("../services/index");
+const {StatusCodes} = require("http-status-codes");
 
 class ResponseController{
 
@@ -10,7 +11,7 @@ class ResponseController{
     async get(req,res){
         try {
             const response = await this.responseService.get(req.params.id);
-            return res.status(200).json({
+            return res.status(StatusCodes.OK).json({
                 data:response,
                 success:true,
                 message:"successfully fetch the response",
@@ -18,7 +19,7 @@ class ResponseController{
             });
         } catch (error) {
             console.log(error);
-            return res.status(500).json({
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 data:{},
                 success:false,
                 message:"Unable to fetch the response",
@@ -30,7 +31,7 @@ class ResponseController{
     async create(req,res){
         try {
             const response = await this.responseService.create(req.body);
-            return res.status(201).json({
+            return res.status(StatusCodes.CREATED).json({
                 data:response,
                 success:true,
                 message:"successfully created a response",
@@ -38,7 +39,7 @@ class ResponseController{
             }); 
         } catch (error) {
             console.log(error);
-            return res.status(500).json({
+            return res.status(INTERNAL_SERVER_ERROR).json({
                 data:{},
                 success:false,
                 message:"Unable to created a response",
@@ -50,7 +51,7 @@ class ResponseController{
     async delete(req,res){
         try {
             const response = await this.responseService.delete(req.params.id);
-            return res.status(200).json({
+            return res.status(StatusCodes.OK).json({
                 data:response,
                 success:true,
                 message:"successfully deleted a response",
@@ -58,7 +59,7 @@ class ResponseController{
             }); 
         } catch (error) {
             console.log(error);
-            return res.status(500).json({
+            return res.status(INTERNAL_SERVER_ERROR).json({
                 data:{},
                 success:false,
                 message:"Unable to delete a response",
@@ -70,7 +71,7 @@ class ResponseController{
     async update(req,res){
         try {
             const response = await this.responseService.update(req.params.id,req.body);
-            return res.status(200).json({
+            return res.status(StatusCodes.OK).json({
                 data:response,
                 success:true,
                 message:"successfully updated a response",
@@ -78,7 +79,7 @@ class ResponseController{
             }); 
         } catch (error) {
             console.log(error);
-            return res.status(500).json({
+            return res.status(INTERNAL_SERVER_ERROR).json({
                 data:{},
                 success:false,
                 message:"Unable to update a response",
@@ -90,7 +91,7 @@ class ResponseController{
     async createBulk(req,res){
         try {
             const response = await this.responseService.createBulk(req.body.data);
-            return res.status(200).json({
+            return res.status(StatusCodes.OK).json({
                 data:response,
                 success:true,
                 message:"successfully createBulk response",
@@ -98,7 +99,7 @@ class ResponseController{
             }); 
         } catch (error) {
             console.log(error);
-            return res.status(500).json({
+            return res.status(INTERNAL_SERVER_ERROR).json({
                 data:{},
                 success:false,
                 message:"Unable to createBulk response",
@@ -110,7 +111,7 @@ class ResponseController{
     async getScore(req,res){
         try {
             const response = await this.responseService.getScore(req.user);
-            return res.status(200).json({
+            return res.status(StatusCodes.OK).json({
                 data:response,
                 success:true,
                 message:"successfully get the user score",
@@ -118,7 +119,7 @@ class ResponseController{
             }); 
         } catch (error) {
             console.log(error);
-            return res.status(500).json({
+            return res.status(INTERNAL_SERVER_ERROR).json({
                 data:{},
                 success:false,
                 message:"Unable to get the user score",
@@ -130,7 +131,7 @@ class ResponseController{
     async quizFeedback(req,res){
         try {
             const response = await this.responseService.quizFeedback(req.user);
-            return res.status(200).json({
+            return res.status(StatusCodes.OK).json({
                 data:response,
                 success:true,
                 message:"successfully get the user quizFeedback",
@@ -138,7 +139,7 @@ class ResponseController{
             }); 
         } catch (error) {
             console.log(error);
-            return res.status(500).json({
+            return res.status(INTERNAL_SERVER_ERROR).json({
                 data:{},
                 success:false,
                 message:"Unable to get the user quizFeedback",

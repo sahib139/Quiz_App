@@ -1,3 +1,5 @@
+const {StatusCodes} = require("http-status-codes");
+
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function checkSignUp(req, res, next) {
@@ -14,7 +16,7 @@ function checkSignUp(req, res, next) {
         }
         next();
     } catch (error) {
-        return res.status(400).json({ 
+        return res.status(StatusCodes.BAD_REQUEST).json({ 
             message: "Bad Request!",
             err:error, 
         });
@@ -35,7 +37,7 @@ function checkSignIn(req, res, next) {
         }
         next();
     } catch (error) {
-        return res.status(400).json({ 
+        return res.status(StatusCodes.BAD_REQUEST).json({ 
             message: "Bad Request!",
             err:error, 
         });

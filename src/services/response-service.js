@@ -1,4 +1,5 @@
 const {ResponseRepository, QuestionRepository} = require("../repository/index");
+const {ServiceError} = require("../utils/errorHandling/index");
 
 class ResponseService {
 
@@ -18,7 +19,7 @@ class ResponseService {
             return response;
         } catch (error) {
             console.log(error);
-            throw error;
+            return new ServiceError();
         }
     }
 
@@ -28,7 +29,7 @@ class ResponseService {
             return response;
         } catch (error) {
             console.log(error);
-            throw error;
+            return new ServiceError();
         }
     }
 
@@ -38,7 +39,7 @@ class ResponseService {
             return response;
         } catch (error) {
             console.log(error);
-            throw error;
+            return new ServiceError();
         }
     }
 
@@ -53,7 +54,7 @@ class ResponseService {
             return response;
         } catch (error) {
             console.log(error);
-            throw error;
+            return new ServiceError();
         }
     }
 
@@ -69,7 +70,7 @@ class ResponseService {
                 return response;
             }));
             const response = await this.responseRepository.createBulk(data);
-            return response;
+            return new ServiceError();
 
         } catch (error) {
             console.log(error);
@@ -88,7 +89,7 @@ class ResponseService {
             return score;
         } catch (error) {
             console.log(error);
-            throw error;
+            return new ServiceError();
         }
     }
 
@@ -107,7 +108,7 @@ class ResponseService {
             return responses;
         } catch (error) {
             console.log(error);
-            throw error;
+            return new ServiceError();
         }
     }
 }

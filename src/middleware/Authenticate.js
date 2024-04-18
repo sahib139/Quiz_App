@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const {Secrete_Key} = require("../config/server-config");
+const {StatusCodes} = require("http-status-codes");
 
 const Authenticate = (req,res,next)=>{
     try {
@@ -10,7 +11,7 @@ const Authenticate = (req,res,next)=>{
         next();
     } catch (error) {
         console.log(error);
-        return res.status(401).json({
+        return res.status(StatusCodes.UNAUTHORIZED).json({
             message:"Unable to authenticate",
             err:error,
         });

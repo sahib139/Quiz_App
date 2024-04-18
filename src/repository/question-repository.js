@@ -1,6 +1,9 @@
 const {Question} = require("../models/index");
 const CrudRepository = require("./crud-repository");
 
+const {AppError,ValidationError} = require("../utils/errorHandling/index");
+const {StatusCodes} = require("http-status-codes");
+
 class QuestionRepository extends CrudRepository{
 
     constructor(){
@@ -17,8 +20,15 @@ class QuestionRepository extends CrudRepository{
             });
             return response;
         } catch (error) {
-            console.log(error);
-            throw error;
+            if(error.name="SequelizeValidationError"){
+                throw new ValidationError();
+            }
+            throw new AppError(
+                "RepositoryError",
+                "Cannot fetch",
+                "There was some issue in fetching, please try again later",
+                StatusCodes.INTERNAL_SERVER_ERROR
+            );
         }
     }
 
@@ -31,8 +41,15 @@ class QuestionRepository extends CrudRepository{
             });
             return questions;
         } catch (error) {
-            console.log(error);
-            throw error;
+            if(error.name="SequelizeValidationError"){
+                throw new ValidationError();
+            }
+            throw new AppError(
+                "RepositoryError",
+                "Cannot fetch",
+                "There was some issue in fetching questions, please try again later",
+                StatusCodes.INTERNAL_SERVER_ERROR
+            );
         }
     }
 }

@@ -1,4 +1,5 @@
 const {UserService}  = require("../services/index");
+const {StatusCodes} = require("http-status-codes");
 
 class UserController{
 
@@ -10,7 +11,7 @@ class UserController{
     async signIn(req,res){
         try {
             const response = await this.userService.signIn(req.body);
-            return res.status(201).json({
+            return res.status(StatusCodes.ACCEPTED).json({
                 data:response,
                 success:true,
                 message:"successfully signIn",
@@ -18,7 +19,7 @@ class UserController{
             }); 
         } catch (error) {
             console.log(error);
-            return res.status(500).json({
+            return res.status(StatusCodes.UNAUTHORIZED).json({
                 data:{},
                 success:false,
                 message:"Unable to SignIn",
@@ -30,7 +31,7 @@ class UserController{
     async signUp(req,res){
         try {
             const response = await this.userService.create(req.body);
-            return res.status(201).json({
+            return res.status(StatusCodes.CREATED).json({
                 data:response,
                 success:true,
                 message:"successfully created a user",
@@ -38,7 +39,7 @@ class UserController{
             }); 
         } catch (error) {
             console.log(error);
-            return res.status(500).json({
+            return res.status(StatusCodes.BAD_REQUEST).json({
                 data:{},
                 success:false,
                 message:"Unable to SignUp",

@@ -1,3 +1,6 @@
+const {AppError,ValidationError} = require("../utils/errorHandling/index");
+const {StatusCodes} = require("http-status-codes");
+
 class CrudRepository{
 
     constructor(model){
@@ -9,22 +12,36 @@ class CrudRepository{
             const response = await this.model.create(data);
             return response;
         } catch (error) {
-            console.log(error);
-            throw error;
+            if(error.name="SequelizeValidationError"){
+                throw new ValidationError();
+            }
+            throw new AppError(
+                "RepositoryError",
+                "Cannot create",
+                "There was some issue in creating, please try again later",
+                StatusCodes.INTERNAL_SERVER_ERROR
+            );
         }
     }
 
     async delete(id){
         try {
-            const response = await this.model.destroy({
+            await this.model.destroy({
                 where:{
                     id,
                 },
             });
             return true;
         } catch (error) {
-            console.log(error);
-            throw error;
+            if(error.name="SequelizeValidationError"){
+                throw new ValidationError();
+            }
+            throw new AppError(
+                "RepositoryError",
+                "Cannot delete",
+                "There was some issue in deleting, please try again later",
+                StatusCodes.INTERNAL_SERVER_ERROR
+            );
         }
     }
 
@@ -33,8 +50,15 @@ class CrudRepository{
             const response = await this.model.findByPk(id);
             return response;
         } catch (error) {
-            console.log(error);
-            throw error;
+            if(error.name="SequelizeValidationError"){
+                throw new ValidationError();
+            }
+            throw new AppError(
+                "RepositoryError",
+                "Cannot fetch",
+                "There was some issue in fetching, please try again later",
+                StatusCodes.INTERNAL_SERVER_ERROR
+            );
         }
     }
 
@@ -47,8 +71,15 @@ class CrudRepository{
             });
             return response;
         } catch (error) {
-            console.log(error);
-            throw error;
+            if(error.name="SequelizeValidationError"){
+                throw new ValidationError();
+            }
+            throw new AppError(
+                "RepositoryError",
+                "Cannot update",
+                "There was some issue updating, please try again later",
+                StatusCodes.INTERNAL_SERVER_ERROR
+            );
         }
     }
 }

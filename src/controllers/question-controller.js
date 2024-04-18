@@ -1,4 +1,5 @@
 const {QuestionService}  = require("../services/index");
+const {StatusCodes} = require("http-status-codes");
 
 class QuestionController{
 
@@ -10,7 +11,7 @@ class QuestionController{
     async get(req,res){
         try {
             const response = await this.questionService.get(req.params.id);
-            return res.status(200).json({
+            return res.status(StatusCodes.OK).json({
                 data:response,
                 success:true,
                 message:"successfully fetch the question",
@@ -18,7 +19,7 @@ class QuestionController{
             });
         } catch (error) {
             console.log(error);
-            return res.status(500).json({
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 data:{},
                 success:false,
                 message:"Unable to fetch the question",
@@ -30,7 +31,7 @@ class QuestionController{
     async getAll(req,res){
         try {
             const response = await this.questionService.findAll(req.body);
-            return res.status(200).json({
+            return res.status(StatusCodes.OK).json({
                 data:response,
                 success:true,
                 message:"successfully fetch the questions",
@@ -38,7 +39,7 @@ class QuestionController{
             });
         } catch (error) {
             console.log(error);
-            return res.status(500).json({
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 data:{},
                 success:false,
                 message:"Unable to fetch the questions",
@@ -50,7 +51,7 @@ class QuestionController{
     async create(req,res){
         try {
             const response = await this.questionService.create(req.body);
-            return res.status(201).json({
+            return res.status(StatusCodes.CREATED).json({
                 data:response,
                 success:true,
                 message:"successfully created a question",
@@ -58,7 +59,7 @@ class QuestionController{
             }); 
         } catch (error) {
             console.log(error);
-            return res.status(500).json({
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 data:{},
                 success:false,
                 message:"Unable to created a question",
@@ -70,7 +71,7 @@ class QuestionController{
     async delete(req,res){
         try {
             const response = await this.questionService.delete(req.params.id);
-            return res.status(200).json({
+            return res.status(StatusCodes.OK).json({
                 data:response,
                 success:true,
                 message:"successfully deleted a question",
@@ -78,7 +79,7 @@ class QuestionController{
             }); 
         } catch (error) {
             console.log(error);
-            return res.status(500).json({
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 data:{},
                 success:false,
                 message:"Unable to delete a question",
@@ -90,7 +91,7 @@ class QuestionController{
     async update(req,res){
         try {
             const response = await this.questionService.update(req.params.id,req.body);
-            return res.status(200).json({
+            return res.status(StatusCodes.OK).json({
                 data:response,
                 success:true,
                 message:"successfully updated a question",
@@ -98,7 +99,7 @@ class QuestionController{
             }); 
         } catch (error) {
             console.log(error);
-            return res.status(500).json({
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 data:{},
                 success:false,
                 message:"Unable to update a question",

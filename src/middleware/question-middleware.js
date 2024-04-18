@@ -1,3 +1,5 @@
+const {StatusCodes} = require("http-status-codes");
+
 const getAllMiddleware = async (req,res,next)=>{
     try {
         req.body.filter = {
@@ -7,7 +9,7 @@ const getAllMiddleware = async (req,res,next)=>{
         next();
     } catch (error) {
         console.log(error);
-        return res.status(400).json({
+        return res.status(StatusCodes.BAD_REQUEST).json({
             data:{},
             success:false,
             message:"Bad Request!",
@@ -30,7 +32,7 @@ const createMiddleware = async (req,res,next)=>{
         next();
     } catch (error) {
         console.log(error);
-        return res.status(400).json({
+        return res.status(StatusCodes.BAD_REQUEST).json({
             data:{},
             success:false,
             message:"Bad Request!",

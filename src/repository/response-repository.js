@@ -1,6 +1,9 @@
 const {Response} = require("../models/index");
 const CrudRepository = require("./crud-repository");
 
+const {AppError,ValidationError} = require("../utils/errorHandling/index");
+const {StatusCodes} = require("http-status-codes");
+
 class ResponseRepository extends CrudRepository{
 
     constructor(){
@@ -14,8 +17,15 @@ class ResponseRepository extends CrudRepository{
             });
             return responses;
         } catch (error) {
-            console.log(error);
-            throw error;
+            if(error.name="SequelizeValidationError"){
+                throw new ValidationError();
+            }
+            throw new AppError(
+                "RepositoryError",
+                "Cannot fetch",
+                "There was some issue in fetching responses, please try again later",
+                StatusCodes.INTERNAL_SERVER_ERROR
+            );
         }
     }
     async createBulk(data){
@@ -23,8 +33,15 @@ class ResponseRepository extends CrudRepository{
             const response = await Response.bulkCreate(data);
             return response;
         } catch (error) {
-            console.log(error);
-            throw error;
+            if(error.name="SequelizeValidationError"){
+                throw new ValidationError();
+            }
+            throw new AppError(
+                "RepositoryError",
+                "Cannot create",
+                "There was some issue in creating responses, please try again later",
+                StatusCodes.INTERNAL_SERVER_ERROR
+            );
         }
     }
 }

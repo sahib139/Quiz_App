@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
 const {UserRepository} = require("../repository/index");
 const bcrypt = require("bcrypt");
+
+const {ServiceError} = require("../utils/errorHandling/index");
 const { Secrete_Key } = require("../config/server-config");
 
 class UserService {
@@ -15,7 +17,7 @@ class UserService {
             return response;
         } catch (error) {
             console.log(error);
-            throw error;
+            return new ServiceError();
         }
     }
 
@@ -25,7 +27,7 @@ class UserService {
             return response;
         } catch (error) {
             console.log(error);
-            throw error;
+            return new ServiceError();
         }
     }
 
@@ -35,7 +37,7 @@ class UserService {
             return response;
         } catch (error) {
             console.log(error);
-            throw error;
+            return new ServiceError();
         }
     }
 
@@ -52,7 +54,7 @@ class UserService {
             return token;
         } catch (error) {
             console.log(error);
-            throw error;
+            return new ServiceError();
         }
     }
     

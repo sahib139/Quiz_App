@@ -1,4 +1,5 @@
 const {QuestionRepository} = require("../repository/index");
+const {ServiceError} = require("../utils/errorHandling/index");
 
 class QuestionService {
 
@@ -12,7 +13,7 @@ class QuestionService {
             return response;
         } catch (error) {
             console.log(error);
-            throw error;
+            return new ServiceError();
         }
     }
 
@@ -22,7 +23,7 @@ class QuestionService {
             return response;
         } catch (error) {
             console.log(error);
-            throw error;
+            return new ServiceError();
         }
     }
 
@@ -32,7 +33,7 @@ class QuestionService {
             return response;
         } catch (error) {
             console.log(error);
-            throw error;
+            return new ServiceError();
         }
     }
 
@@ -42,7 +43,7 @@ class QuestionService {
             return true;
         } catch (error) {
             console.log(error);
-            throw error;
+            return new ServiceError();
         }
     }
 
@@ -52,7 +53,7 @@ class QuestionService {
             return response;
         } catch (error){
             console.log(error);
-            throw error;
+            return new ServiceError();
         }
     }
 }
