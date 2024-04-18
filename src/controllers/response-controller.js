@@ -12,7 +12,7 @@ class ResponseController{
             const response = await this.responseService.get(req.params.id);
             return res.status(200).json({
                 data:response,
-                success:success,
+                success:true,
                 message:"successfully fetch the response",
                 err:{},
             });
@@ -89,7 +89,7 @@ class ResponseController{
 
     async createBulk(req,res){
         try {
-            const response = await this.responseService.update(req.user,req.body);
+            const response = await this.responseService.createBulk(req.body.data);
             return res.status(200).json({
                 data:response,
                 success:true,

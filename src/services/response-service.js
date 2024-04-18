@@ -9,7 +9,12 @@ class ResponseService {
 
     async create(data){
         try {
-            const response = await this.responseRepository.create(data);
+            const question = await this.questionRepository.get(data.question_id);
+            data.is_correct = false;
+            if(question.correct_answer == data.selected_answer){
+                data.is_correct = true;
+            }
+            const response = await this.responseRepository.create(data); 
             return response;
         } catch (error) {
             console.log(error);
@@ -39,6 +44,11 @@ class ResponseService {
 
     async update(id,data){
         try {
+            const existingResponse = await this.responseRepository.get(id); 
+            const question = await this.questionRepository.get(existingResponse.question_id);
+            if(question.correct_answer == data.selected_answer){
+                data.is_correct = true;
+            }
             const response = await this.responseRepository.update(id,data);
             return response;
         } catch (error) {
@@ -47,19 +57,17 @@ class ResponseService {
         }
     }
 
-    async createBulk(userDetail,data){
+    async createBulk(data){
         try {
             // data only has question_id and selected_answer(index of the option).
             // we have to add user_id , is_correct field in each response.
-            data = data.map(async (response)=>{
-                const question = await  this.questionRepository.get(response.id);
-                response.user_id = userDetail.id;
+            data = await Promise.all(data.map(async (response)=>{
+                const question = await  this.questionRepository.get(response.question_id);
                 response.is_correct = false;
-                if(question.correct_answer == response.correct_answer)
+                if(question.correct_answer == response.selected_answer)
                     response.is_correct = true;
                 return response;
-            });
-
+            }));
             const response = await this.responseRepository.createBulk(data);
             return response;
 
@@ -71,6 +79,7 @@ class ResponseService {
 
     async getScore(userDetail){
         try {
+            // in limit add max value --> assume 50
             const responses = await this.responseRepository.findAllResponseOfUser(userDetail.id);
             let score = 0;
             responses.map((response)=>{
@@ -85,17 +94,16 @@ class ResponseService {
 
     async quizFeedback(userDetail){
         try {
-            const responses = await this.responseRepository.findAllResponseOfUser(userDetail.id);
-            responses = responses.map(async (responses)=>{
-                const Question = await this.questionRepository.get(responses.question_id);
-                Question.option = JSON.parse(Question.option)
+            let responses = await this.responseRepository.findAllResponseOfUser(userDetail.id);
+            responses = await Promise.all(responses.map(async (response)=>{
+                const Question = await this.questionRepository.get(response.question_id);
                 return {
                     question : Question.question,
-                    selected_answer : Question.option[responses.selected_answer],
-                    correct_answer : Question.option[correct_answer],
-                    is_correct : responses.is_correct
+                    selected_answer : Question.options[response.selected_answer],
+                    correct_answer : Question.options[Question.correct_answer],
+                    is_correct : response.is_correct
                 }
-            });
+            }));
             return responses;
         } catch (error) {
             console.log(error);

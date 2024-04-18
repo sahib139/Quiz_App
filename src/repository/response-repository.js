@@ -7,12 +7,10 @@ class ResponseRepository extends CrudRepository{
         super(Response);
     }
 
-    async findAllResponseOfUser(id,filter){
+    async findAllResponseOfUser(id){
         try {
             const responses = await Response.findAll({
-                where:{id},
-                limit:filter.limit,
-                offset:filter.offset,
+                where:{user_id:id},
             });
             return responses;
         } catch (error) {
@@ -22,7 +20,7 @@ class ResponseRepository extends CrudRepository{
     }
     async createBulk(data){
         try {
-            const response = await Response.BulkCreate(data);
+            const response = await Response.bulkCreate(data);
             return response;
         } catch (error) {
             console.log(error);
