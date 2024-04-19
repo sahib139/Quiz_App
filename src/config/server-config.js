@@ -8,4 +8,5 @@ module.exports={
     SALT:bcrypt.genSaltSync(10),
     DB_SYNC:false,
     Secrete_Key:process.env.Secrete_Key,
+    Static_File_Path : process.env.Static_File_Path, 
 }
