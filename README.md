@@ -35,6 +35,11 @@
   - A response belongs to an user .
   - A user can have many response according to different to questions.
   - A question can have many response according to different users.
+
+- API 
+  - CRUD API for Question and Response
+  - Score and Feedback API is also included after submitting the responses using create or bulkResponses API
+  - User SignIn and SignUp API also included.
 ```
 - Finally, Run the `npm start` in the root directory to run the Server.
 
