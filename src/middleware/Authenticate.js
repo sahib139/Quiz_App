@@ -4,8 +4,8 @@ const {StatusCodes} = require("http-status-codes");
 
 const Authenticate = (req,res,next)=>{
     try {
-        const token = req.body.token; // for proper implementation we can fetch it from cookies
-                                    // req.cookies.token
+        // const token = req.body.token; // request from postMan 
+        const token = req.cookies.token;// request from browser
         const response = jwt.verify(token,Secrete_Key);  
         req.user = response;
         next();

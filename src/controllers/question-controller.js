@@ -30,7 +30,7 @@ class QuestionController{
 
     async getAll(req,res){
         try {
-            const response = await this.questionService.findAll(req.body);
+            const response = await this.questionService.findAll(req.body.filter);
             return res.status(StatusCodes.OK).json({
                 data:response,
                 success:true,

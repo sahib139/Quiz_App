@@ -20,7 +20,7 @@ class UserRepository extends CrudRepository{
             return user;
         } catch (error) {
             if(error.name="SequelizeValidationError"){
-                throw new ValidationError();
+                throw new ValidationError(error);
             }
             throw new AppError(
                 "RepositoryError",

@@ -1,11 +1,13 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const {PORT,DB_SYNC} = require("./config/server-config");
 const db = require("./models/index");
 const APIroutes = require("./routers/index"); 
 
 app.use(bodyParser.json());
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended:true}));
 
 app.use("/api",APIroutes);

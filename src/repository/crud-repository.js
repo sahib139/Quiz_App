@@ -13,7 +13,7 @@ class CrudRepository{
             return response;
         } catch (error) {
             if(error.name="SequelizeValidationError"){
-                throw new ValidationError();
+                throw new ValidationError(error);
             }
             throw new AppError(
                 "RepositoryError",
@@ -34,7 +34,7 @@ class CrudRepository{
             return true;
         } catch (error) {
             if(error.name="SequelizeValidationError"){
-                throw new ValidationError();
+                throw new ValidationError(error);
             }
             throw new AppError(
                 "RepositoryError",
@@ -51,7 +51,7 @@ class CrudRepository{
             return response;
         } catch (error) {
             if(error.name="SequelizeValidationError"){
-                throw new ValidationError();
+                throw new ValidationError(error);
             }
             throw new AppError(
                 "RepositoryError",
@@ -72,7 +72,7 @@ class CrudRepository{
             return response;
         } catch (error) {
             if(error.name="SequelizeValidationError"){
-                throw new ValidationError();
+                throw new ValidationError(error);
             }
             throw new AppError(
                 "RepositoryError",

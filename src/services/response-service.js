@@ -64,6 +64,7 @@ class ResponseService {
             // we have to add user_id , is_correct field in each response.
             data = await Promise.all(data.map(async (response)=>{
                 const question = await  this.questionRepository.get(response.question_id);
+                await this.ifResponseExistThenDelete(response);
                 response.is_correct = false;
                 if(question.correct_answer == response.selected_answer)
                     response.is_correct = true;
@@ -106,6 +107,15 @@ class ResponseService {
                 }
             }));
             return responses;
+        } catch (error) {
+            console.log(error);
+            return new ServiceError();
+        }
+    }
+
+    async ifResponseExistThenDelete(response){
+        try {
+            await this.responseRepository.ifResponseExistThenDelete(response.user_id,response.question_id);
         } catch (error) {
             console.log(error);
             return new ServiceError();

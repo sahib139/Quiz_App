@@ -39,7 +39,7 @@ class ResponseController{
             }); 
         } catch (error) {
             console.log(error);
-            return res.status(INTERNAL_SERVER_ERROR).json({
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 data:{},
                 success:false,
                 message:"Unable to created a response",
@@ -59,7 +59,7 @@ class ResponseController{
             }); 
         } catch (error) {
             console.log(error);
-            return res.status(INTERNAL_SERVER_ERROR).json({
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 data:{},
                 success:false,
                 message:"Unable to delete a response",
@@ -79,7 +79,7 @@ class ResponseController{
             }); 
         } catch (error) {
             console.log(error);
-            return res.status(INTERNAL_SERVER_ERROR).json({
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 data:{},
                 success:false,
                 message:"Unable to update a response",
@@ -90,7 +90,7 @@ class ResponseController{
 
     async createBulk(req,res){
         try {
-            const response = await this.responseService.createBulk(req.body.data);
+            const response = await this.responseService.createBulk(req.body);
             return res.status(StatusCodes.OK).json({
                 data:response,
                 success:true,
@@ -99,7 +99,7 @@ class ResponseController{
             }); 
         } catch (error) {
             console.log(error);
-            return res.status(INTERNAL_SERVER_ERROR).json({
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 data:{},
                 success:false,
                 message:"Unable to createBulk response",
@@ -119,7 +119,7 @@ class ResponseController{
             }); 
         } catch (error) {
             console.log(error);
-            return res.status(INTERNAL_SERVER_ERROR).json({
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 data:{},
                 success:false,
                 message:"Unable to get the user score",
@@ -139,7 +139,7 @@ class ResponseController{
             }); 
         } catch (error) {
             console.log(error);
-            return res.status(INTERNAL_SERVER_ERROR).json({
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 data:{},
                 success:false,
                 message:"Unable to get the user quizFeedback",

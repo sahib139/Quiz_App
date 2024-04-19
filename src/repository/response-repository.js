@@ -18,7 +18,7 @@ class ResponseRepository extends CrudRepository{
             return responses;
         } catch (error) {
             if(error.name="SequelizeValidationError"){
-                throw new ValidationError();
+                throw new ValidationError(error);
             }
             throw new AppError(
                 "RepositoryError",
@@ -34,7 +34,30 @@ class ResponseRepository extends CrudRepository{
             return response;
         } catch (error) {
             if(error.name="SequelizeValidationError"){
-                throw new ValidationError();
+                throw new ValidationError(error);
+            }
+            throw new AppError(
+                "RepositoryError",
+                "Cannot create",
+                "There was some issue in creating responses, please try again later",
+                StatusCodes.INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
+    async ifResponseExistThenDelete(user_id,question_id){
+        try {
+            const response  = await Response.findOne({
+                where:{
+                    user_id,
+                    question_id
+                }
+            });
+            if(response)await this.delete(response.id);
+            return true;
+        } catch (error) {
+            if(error.name="SequelizeValidationError"){
+                throw new ValidationError(error);
             }
             throw new AppError(
                 "RepositoryError",

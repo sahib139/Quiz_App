@@ -21,7 +21,7 @@ class QuestionRepository extends CrudRepository{
             return response;
         } catch (error) {
             if(error.name="SequelizeValidationError"){
-                throw new ValidationError();
+                throw new ValidationError(error);
             }
             throw new AppError(
                 "RepositoryError",
@@ -42,7 +42,7 @@ class QuestionRepository extends CrudRepository{
             return questions;
         } catch (error) {
             if(error.name="SequelizeValidationError"){
-                throw new ValidationError();
+                throw new ValidationError(error);
             }
             throw new AppError(
                 "RepositoryError",
