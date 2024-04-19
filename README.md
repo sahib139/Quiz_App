@@ -43,6 +43,7 @@
   - User SignIn and SignUp API are also included.
 ```
 - Finally, Run the `npm start` in the root directory to run the Server.
+- Now open [QuizApp](http://localhost:3000/)
 
 ### Note ->
 - In src/config/server-config.js `DB_SYNC = false` for syncing the database initially make it true, after executing once change it to false because we don't want to do syncing every time we start the server. 
